@@ -9,7 +9,9 @@
  * Author: Edges for Training Team
  *
  ***********************************************************************************************/
+
 #include "gpio.h"
+#include "common_macros.h"
 #include "tm4c123gh6pm_registers.h"
 
 void GPIO_BuiltinButtonsLedsInit(void)
@@ -115,4 +117,266 @@ void GPIO_SW2EdgeTriggeredInterruptInit(void)
     /* Set GPIO PORTF priority as 5 by set Bit number 21, 22 and 23 with value 2 */
     NVIC_PRI7_REG = (NVIC_PRI7_REG & GPIO_PORTF_PRIORITY_MASK) | (GPIO_PORTF_INTERRUPT_PRIORITY<<GPIO_PORTF_PRIORITY_BITS_POS);
     NVIC_EN0_REG         |= 0x40000000;   /* Enable NVIC Interrupt for GPIO PORTF by set bit number 30 in EN0 Register */
+}
+
+void GPIO_DirModeSet(uint32 ui32Port, uint8 ui8Pins, GPIOPinIO ui32PinIO)
+{
+    if((ui8Pins < NUM_OF_PINS_PER_PORT) && (ui32Port < NUM_OF_PORTS))
+    {
+        switch (ui32Port) {
+        case PORTA_ID:
+            GPIO_PORTA_DEN_REG |= (1<<ui8Pins);
+            if(ui32PinIO == GPIO_DIR_MODE_IN)
+            {
+                GPIO_PORTA_DIR_REG &= ~(1<<ui8Pins);
+            }
+            else if(ui32PinIO == GPIO_DIR_MODE_OUT)
+            {
+                GPIO_PORTA_DIR_REG |= (1<<ui8Pins);
+            }
+            break;
+        case PORTB_ID:
+            GPIO_PORTB_DEN_REG |= (1<<ui8Pins);
+            if(ui32PinIO == GPIO_DIR_MODE_IN)
+            {
+                GPIO_PORTB_DIR_REG &= ~(1<<ui8Pins);
+            }
+            else if(ui32PinIO == GPIO_DIR_MODE_OUT)
+            {
+                GPIO_PORTB_DIR_REG |= (1<<ui8Pins);
+            }
+            break;
+        case PORTC_ID:
+            GPIO_PORTC_DEN_REG |= (1<<ui8Pins);
+            if(ui32PinIO == GPIO_DIR_MODE_IN)
+            {
+                GPIO_PORTC_DIR_REG &= ~(1<<ui8Pins);
+            }
+            else if(ui32PinIO == GPIO_DIR_MODE_OUT)
+            {
+                GPIO_PORTC_DIR_REG |= (1<<ui8Pins);
+            }
+            break;
+        case PORTD_ID:
+            GPIO_PORTD_DEN_REG |= (1<<ui8Pins);
+            if(ui32PinIO == GPIO_DIR_MODE_IN)
+            {
+                GPIO_PORTD_DIR_REG &= ~(1<<ui8Pins);
+            }
+            else if(ui32PinIO == GPIO_DIR_MODE_OUT)
+            {
+                GPIO_PORTD_DIR_REG |= (1<<ui8Pins);
+            }
+            break;
+        case PORTE_ID:
+            GPIO_PORTE_DEN_REG |= (1<<ui8Pins);
+            if(ui32PinIO == GPIO_DIR_MODE_IN)
+            {
+                GPIO_PORTE_DIR_REG &= ~(1<<ui8Pins);
+            }
+            else if(ui32PinIO == GPIO_DIR_MODE_OUT)
+            {
+                GPIO_PORTE_DIR_REG |= (1<<ui8Pins);
+            }
+            break;
+        case PORTF_ID:
+            GPIO_PORTF_DEN_REG |= (1<<ui8Pins);
+            if(ui32PinIO == GPIO_DIR_MODE_IN)
+            {
+                GPIO_PORTF_DIR_REG &= ~(1<<ui8Pins);
+            }
+            else if(ui32PinIO == GPIO_DIR_MODE_OUT)
+            {
+                GPIO_PORTF_DIR_REG |= (1<<ui8Pins);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+}
+GPIOPinIO GPIO_DirModeGet(uint32 ui32Port, uint8 ui8Pin)
+{
+    if((ui8Pin < NUM_OF_PINS_PER_PORT) && (ui32Port < NUM_OF_PORTS))
+    {
+        switch (ui32Port)
+        {
+        case PORTA_ID:
+            return (BIT_IS_SET(GPIO_PORTA_DIR_REG, ui8Pin)? GPIO_DIR_MODE_OUT : GPIO_DIR_MODE_IN);
+        case PORTB_ID:
+            return (BIT_IS_SET(GPIO_PORTB_DIR_REG, ui8Pin)? GPIO_DIR_MODE_OUT : GPIO_DIR_MODE_IN);
+        case PORTC_ID:
+            return (BIT_IS_SET(GPIO_PORTC_DIR_REG, ui8Pin)? GPIO_DIR_MODE_OUT : GPIO_DIR_MODE_IN);
+        case PORTD_ID:
+            return (BIT_IS_SET(GPIO_PORTD_DIR_REG, ui8Pin)? GPIO_DIR_MODE_OUT : GPIO_DIR_MODE_IN);
+        case PORTE_ID:
+            return (BIT_IS_SET(GPIO_PORTE_DIR_REG, ui8Pin)? GPIO_DIR_MODE_OUT : GPIO_DIR_MODE_IN);
+        case PORTF_ID:
+            return (BIT_IS_SET(GPIO_PORTF_DIR_REG, ui8Pin)? GPIO_DIR_MODE_OUT : GPIO_DIR_MODE_IN);
+        default:
+            break;
+        }
+    }
+    return GPIO_DIR_MODE_IN;
+}
+
+void GPIO_PinWrite(uint32 ui32Port, uint8 ui8Pin, uint8 ui8Val)
+{
+    if((ui8Pin < NUM_OF_PINS_PER_PORT) && (ui32Port < NUM_OF_PORTS))
+    {
+        switch (ui32Port) {
+        case PORTA_ID:
+            if(ui8Val == LOGIC_LOW)
+            {
+                GPIO_PORTA_DATA_REG &= ~(1<<ui8Pin);
+            }
+            else if(ui8Val == LOGIC_HIGH)
+            {
+                GPIO_PORTA_DATA_REG |= (1<<ui8Pin);
+            }
+            break;
+        case PORTB_ID:
+            if(ui8Val == LOGIC_LOW)
+            {
+                GPIO_PORTB_DATA_REG &= ~(1<<ui8Pin);
+            }
+            else if(ui8Val == LOGIC_HIGH)
+            {
+                GPIO_PORTB_DATA_REG |= (1<<ui8Pin);
+            }
+            break;
+        case PORTC_ID:
+            if(ui8Val == LOGIC_LOW)
+            {
+                GPIO_PORTC_DATA_REG &= ~(1<<ui8Pin);
+            }
+            else if(ui8Val == LOGIC_HIGH)
+            {
+                GPIO_PORTC_DATA_REG |= (1<<ui8Pin);
+            }
+            break;
+        case PORTD_ID:
+            if(ui8Val == LOGIC_LOW)
+            {
+                GPIO_PORTD_DATA_REG &= ~(1<<ui8Pin);
+            }
+            else if(ui8Val == LOGIC_HIGH)
+            {
+                GPIO_PORTD_DATA_REG |= (1<<ui8Pin);
+            }
+            break;
+        case PORTE_ID:
+            if(ui8Val == LOGIC_LOW)
+            {
+                GPIO_PORTE_DATA_REG &= ~(1<<ui8Pin);
+            }
+            else if(ui8Val == LOGIC_HIGH)
+            {
+                GPIO_PORTE_DATA_REG |= (1<<ui8Pin);
+            }
+            break;
+        case PORTF_ID:
+            if(ui8Val == LOGIC_LOW)
+            {
+                GPIO_PORTF_DATA_REG &= ~(1<<ui8Pin);
+            }
+            else if(ui8Val == LOGIC_HIGH)
+            {
+                GPIO_PORTF_DATA_REG |= (1<<ui8Pin);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+
+}
+uint8 GPIO_PinRead(uint32 ui32Port, uint8 ui8Pin)
+{
+    if((ui8Pin < NUM_OF_PINS_PER_PORT) && (ui32Port < NUM_OF_PORTS))
+    {
+        switch (ui32Port)
+        {
+        case PORTA_ID:
+            return (BIT_IS_SET(GPIO_PORTA_DATA_REG, ui8Pin)? LOGIC_HIGH : LOGIC_LOW);
+        case PORTB_ID:
+            return (BIT_IS_SET(GPIO_PORTB_DATA_REG, ui8Pin)? LOGIC_HIGH : LOGIC_LOW);
+        case PORTC_ID:
+            return (BIT_IS_SET(GPIO_PORTC_DATA_REG, ui8Pin)? LOGIC_HIGH : LOGIC_LOW);
+        case PORTD_ID:
+            return (BIT_IS_SET(GPIO_PORTD_DATA_REG, ui8Pin)? LOGIC_HIGH : LOGIC_LOW);
+        case PORTE_ID:
+            return (BIT_IS_SET(GPIO_PORTE_DATA_REG, ui8Pin)? LOGIC_HIGH : LOGIC_LOW);
+        case PORTF_ID:
+            return (BIT_IS_SET(GPIO_PORTF_DATA_REG, ui8Pin)? LOGIC_HIGH : LOGIC_LOW);
+        default:
+            break;
+        }
+    }
+    return LOGIC_LOW;
+}
+
+
+void GPIO_ADCTriggerDisable(uint32 ui32Port, uint8 ui8Pins)
+{
+    if((ui8Pins < NUM_OF_PINS_PER_PORT) && (ui32Port < NUM_OF_PORTS))
+    {
+        switch (ui32Port) {
+        case PORTA_ID:
+            GPIO_PORTA_AMSEL_REG &= ~(1<<ui8Pins);
+            break;
+        case PORTB_ID:
+            GPIO_PORTB_AMSEL_REG &= ~(1<<ui8Pins);
+            break;
+        case PORTC_ID:
+            GPIO_PORTC_AMSEL_REG &= ~(1<<ui8Pins);
+            break;
+        case PORTD_ID:
+            GPIO_PORTD_AMSEL_REG &= ~(1<<ui8Pins);
+            break;
+        case PORTE_ID:
+            GPIO_PORTE_AMSEL_REG &= ~(1<<ui8Pins);
+            break;
+        case PORTF_ID:
+            GPIO_PORTF_AMSEL_REG &= ~(1<<ui8Pins);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void GPIO_ADCTriggerEnable(uint32 ui32Port, uint8 ui8Pins)
+{
+    if((ui8Pins < NUM_OF_PINS_PER_PORT) && (ui32Port < NUM_OF_PORTS))
+    {
+        switch (ui32Port) {
+        case PORTA_ID:
+            GPIO_PORTA_AMSEL_REG |= (1<<ui8Pins);
+            GPIO_PORTA_AFSEL_REG |= (1<<ui8Pins);
+            break;
+        case PORTB_ID:
+            GPIO_PORTB_AMSEL_REG |= (1<<ui8Pins);
+            GPIO_PORTB_AFSEL_REG |= (1<<ui8Pins);
+            break;
+        case PORTC_ID:
+            GPIO_PORTC_AMSEL_REG |= (1<<ui8Pins);
+            GPIO_PORTC_AFSEL_REG |= (1<<ui8Pins);
+            break;
+        case PORTD_ID:
+            GPIO_PORTD_AMSEL_REG |= (1<<ui8Pins);
+            GPIO_PORTD_AFSEL_REG |= (1<<ui8Pins);
+            break;
+        case PORTE_ID:
+            GPIO_PORTE_AMSEL_REG |= (1<<ui8Pins);
+            GPIO_PORTE_AFSEL_REG |= (1<<ui8Pins);
+            break;
+        case PORTF_ID:
+            GPIO_PORTF_AMSEL_REG |= (1<<ui8Pins);
+            GPIO_PORTF_AFSEL_REG |= (1<<ui8Pins);
+            break;
+        default:
+            break;
+        }
+    }
 }

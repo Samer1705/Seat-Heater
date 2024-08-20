@@ -1,37 +1,57 @@
 /* Kernel includes. */
 #include "FreeRTOS.h"
 #include "task.h"
+#include "event_groups.h"
+#include "queue.h"
+#include "timers.h"
 
 /* MCAL includes. */
 #include "gpio.h"
 #include "uart0.h"
 
-/* Definitions for the event bits in the event group. */
+/* HAL includes. */
+#include "rgb_led.h"
 
+/* Definitions for the event bits in the event group. */
+#define mainSEAT1_FLAG      1
+#define mainSEAT2_FLAG      2
 
 /* The HW setup function */
 static void prvSetupHardware(void);
 
 /* FreeRTOS tasks */
+void vReadTempTask(void* pvParameter);
+void vControlTask(void* pvParameter);
+void vSetHeaterTask(void* pvParameter);
+void vSetStateTask(void* pvParameter);
+void vErrorLogsTask(void* pvParameter);
 
-void vTempReaderTask(void *pvParameters);
+/* Queue Handles */
+QueueHandle_t xSeat1TempQueue;
+QueueHandle_t xSeat1StateQueue;
+QueueHandle_t xSeat1HeaterQueue;
+QueueHandle_t xSeat2TempQueue;
+QueueHandle_t xSeat2StateQueue;
+QueueHandle_t xSeat2HeaterQueue;
+
+struct SeatParams{
+    uint8 id;
+    QueueHandle_t xSeatTempQueue;
+    QueueHandle_t xSeatStateQueue;
+    QueueHandle_t xSeatHeaterQueue;
+    RGBConfig xRgbLed;
+
+};
 
 int main(void)
 {
     /* Setup the hardware for use with the Tiva C board. */
     prvSetupHardware();
 
-
     /* Create Tasks here */
-    xTaskCreate(vTempReaderTask, "Task 1", 256, NULL, 2, NULL);
+//    xTaskCreate(vControlTask, "Seat 1 Control Task", 100, pvParameters, 3, NULL);
 
-    /* Now all the tasks have been started - start the scheduler.
-
-     NOTE : Tasks run in system mode and the scheduler runs in Supervisor mode.
-     The processor MUST be in supervisor mode when vTaskStartScheduler is
-     called.  The demo applications included in the FreeRTOS.org download switch
-     to supervisor mode prior to main being called.  If you are not using one of
-     these demo application projects then ensure Supervisor mode is used here. */
+    /* Now all the tasks have been started - start the scheduler. */
     vTaskStartScheduler();
 
     /* Should never reach here!  If you do then there was not enough heap
@@ -43,7 +63,6 @@ int main(void)
 static void prvSetupHardware(void)
 {
     /* Place here any needed HW initialization such as GPIO, UART, etc.  */
-    UART0_Init();
 }
 
-*-----------------------------------------------------------*/
+/*-----------------------------------------------------------*/

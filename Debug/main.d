@@ -14,6 +14,7 @@ main.obj: D:/IDEs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_type
 main.obj: D:/IDEs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h
 main.obj: D:/IDEs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOSConfig.h
+main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/Common/std_types.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/projdefs.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/portable.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/deprecated_definitions.h
@@ -23,11 +24,16 @@ main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/Fre
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/list.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/event_groups.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/timers.h
+main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/semphr.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/queue.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/GPIO/gpio.h
-main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/Common/std_types.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/UART/uart0.h
+main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/SYSCTL/sysctl.h
+main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/ADC/adc.h
+main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/GPTM/GPTM.h
+main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/tm4c123gh6pm_registers.h
 main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/HAL/RGB_LED/rgb_led.h
+main.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/HAL/Temp_Sensor/temp_sensor.h
 
 ../main.c:
 
@@ -57,6 +63,8 @@ D:/IDEs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h:
 
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOSConfig.h:
 
+D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/Common/std_types.h:
+
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/projdefs.h:
 
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/portable.h:
@@ -75,13 +83,23 @@ D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Sour
 
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/timers.h:
 
+D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/semphr.h:
+
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/queue.h:
 
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/GPIO/gpio.h:
 
-D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/Common/std_types.h:
-
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/UART/uart0.h:
 
+D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/SYSCTL/sysctl.h:
+
+D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/ADC/adc.h:
+
+D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/GPTM/GPTM.h:
+
+D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/MCAL/tm4c123gh6pm_registers.h:
+
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/HAL/RGB_LED/rgb_led.h:
+
+D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/HAL/Temp_Sensor/temp_sensor.h:
 

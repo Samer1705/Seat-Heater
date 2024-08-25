@@ -47,9 +47,9 @@ void UART0_Init(void) /* UART0 configuration: 1 start, 8 bits data, No Parity, 1
 
     UART0_CC_REG  = 0;                    /* Use System Clock*/
     
-    /* To Configure UART0 with Baud Rate 9600 */
-    UART0_IBRD_REG = 104;
-    UART0_FBRD_REG = 11;
+    /* To Configure UART0 with Baud Rate 115200 */
+    UART0_IBRD_REG = 8;
+    UART0_FBRD_REG = 44;
     
     /* UART Line Control Register Settings
      * BRK = 0 Normal Use

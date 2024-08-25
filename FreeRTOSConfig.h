@@ -18,6 +18,7 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
+#include "std_types.h"
 /******************************************************************************/
 /* Scheduling behavior related definitions. **********************************/
 /******************************************************************************/
@@ -38,7 +39,7 @@
 /* configMAX_PRIORITIES Sets the number of available task priorities.  Tasks can
  * be assigned priorities of 0 to (configMAX_PRIORITIES - 1).  Zero is the lowest
  * priority. */
-#define configMAX_PRIORITIES                  (5)
+#define configMAX_PRIORITIES                  (7)
 
 /* Set configUSE_PREEMPTION to 1 to use pre-emptive scheduling. Set
  * configUSE_PREEMPTION to 0 to use co-operative scheduling. */
@@ -58,7 +59,7 @@
  * or heap_4.c are included in the build. This value is defaulted to 4096 bytes but
  * it must be tailored to each application. Note the heap will appear in the .bss
  * section. */
-#define configTOTAL_HEAP_SIZE                 ((size_t)(4096))
+#define configTOTAL_HEAP_SIZE                 ((size_t)(11264))
 
 /******************************************************************************/
 /* Hook and callback function related definitions. ****************************/
@@ -70,6 +71,32 @@
  * for any set to 1. */
 #define configUSE_IDLE_HOOK                   0
 #define configUSE_TICK_HOOK                   0
+
+/******************************************************************************/
+/* Software timer related definitions. ****************************************/
+/******************************************************************************/
+
+/* Set configUSE_TIMERS to 1 to include software timer functionality in the
+ * build.  Set to 0 to exclude software timer functionality from the build.  The
+ * FreeRTOS/source/timers.c source file must be included in the build if
+ * configUSE_TIMERS is set to 1.  Default to 0 if left undefined. */
+#define configUSE_TIMERS                      1
+
+/* configTIMER_TASK_PRIORITY sets the priority used by the timer task.  Only
+ * used if configUSE_TIMERS is set to 1.  The timer task is a standard FreeRTOS
+ * task, so its priority is set like any other task. Only used if configUSE_TIMERS
+ * is set to 1. */
+#define configTIMER_TASK_PRIORITY             (configMAX_PRIORITIES - 1)
+
+/* configTIMER_QUEUE_LENGTH sets the length of the queue (the number of discrete
+ * items the queue can hold) used to send commands to the timer task. Only used
+ * if configUSE_TIMERS is set to 1. */
+#define configTIMER_QUEUE_LENGTH              10
+
+/* configTIMER_TASK_STACK_DEPTH sets the size of the stack allocated to the
+ * timer task (in words, not in bytes!).  The timer task is a standard FreeRTOS
+ * task. Only used if configUSE_TIMERS is set to 1. */
+#define configTIMER_TASK_STACK_DEPTH          configMINIMAL_STACK_SIZE
 
 /******************************************************************************/
 /* ARM Cortex-M Specific Definitions. *****************************************/
@@ -96,7 +123,25 @@ PRIORITY THAN THIS! (higher priorities are lower numeric values. */
  * This implementation is generic to all Cortex-M ports, and do not rely on any particular library functions. */
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY          (configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS))
 
-#define INCLUDE_vTaskDelay                            (1)
+
+/******************************************************************************/
+/* Definitions that include or exclude functionality. *************************/
+/******************************************************************************/
+
+/* Set the following INCLUDE_* constants to 1 to include the named API function,
+ * or 0 to exclude the named API function.  Most linkers will remove unused
+ * functions even when the constant is 1. */
+#define INCLUDE_vTaskDelay                              1
+#define INCLUDE_xTimerPendFunctionCall                  1
+#define INCLUDE_vTaskDelayUntil                         1
+
+/* Set the following configUSE_* constants to 1 to include the named feature in
+ * the build, or 0 to exclude the named feature from the build. */
+#define configUSE_APPLICATION_TASK_TAG                  1
+
+
+#define configUSE_QUEUE_SETS                            1
+#define configUSE_MUTEXES                               1
 
 /******************************************************************************/
 /* Debugging assistance. ******************************************************/
@@ -104,5 +149,26 @@ PRIORITY THAN THIS! (higher priorities are lower numeric values. */
 
 /* Normal assert() semantics without relying on the provision of an assert.h header file. */
 #define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
+
+/******************************************************************************/
+/* RTOS Runtime Measurements. *************************************************/
+/******************************************************************************/
+
+extern uint32 ullTasksOutTime[14];
+extern uint32 ullTasksInTime[14];
+extern uint32 ullTasksTotalTime[14];
+
+#define traceTASK_SWITCHED_IN()                                    \
+        do{                                                                \
+            uint32 taskInTag = (uint32)(pxCurrentTCB->pxTaskTag);          \
+            ullTasksInTime[taskInTag] = GPTM_WTimer0Read();                \
+        }while(0);
+
+#define traceTASK_SWITCHED_OUT()                                                                 \
+        do{                                                                                              \
+            uint32 taskOutTag = (uint32)(pxCurrentTCB->pxTaskTag);                                       \
+            ullTasksOutTime[taskOutTag] = GPTM_WTimer0Read();                                            \
+            ullTasksTotalTime[taskOutTag] += ullTasksOutTime[taskOutTag] - ullTasksInTime[taskOutTag];   \
+        }while(0);
 
 #endif /* FREERTOS_CONFIG_H */

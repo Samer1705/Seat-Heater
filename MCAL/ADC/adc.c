@@ -12,6 +12,7 @@
 
 #include "adc.h"
 #include "gpio.h"
+#include "common_macros.h"
 #include "tm4c123gh6pm_registers.h"
 
 const ADC_ChannelType ADC_channels[12] = { {PORTE_ID,PIN3_ID},
@@ -31,24 +32,23 @@ const ADC_ChannelType ADC_channels[12] = { {PORTE_ID,PIN3_ID},
 void ADC0_Seq3Init()
 {
     ADC0_ACTSS_R &= ~(1<<3);
-    ADC0_EMUX_R &= ~(15<<3*4);
-    ADC0_EMUX_R |= (0x0F<<3*4);
-    ADC0_SSPRI_R &= ~(3<< 3*4);
-    ADC0_SSPRI_R |= (0<<3*4);
+    ADC0_EMUX_R &= ~(0xF<<12);
+    ADC0_SSMUX3_R = 0;
+    ADC0_SSCTL3_R |= (1<<1) | (1<<2);
     ADC0_ACTSS_R |= (1<<3);
 }
 
-boolean ADC0_Seq3SetChannel(uint8 ui8Channel)
+void ADC0_Seq3SetChannel(uint8 ui8Channel)
 {
     ADC0_ACTSS_R &= ~(1<<3); /*Disable sequencer 3 before configuration*/
     ADC0_SSMUX3_R = ui8Channel;
-    ADC0_ACTSS_R &= ~(1<<3); /*Enabling Sample sequencer 3 */
+    ADC0_ACTSS_R |= (1<<3); /*Enabling Sample sequencer 3 */
 }
 
 uint16 ADC0_Seq3ReadValue()
 {
     ADC0_PSSI_R |= (1<<3);
-    while(!ADC0_RIS_R & (1<<3));
+    while(BIT_IS_CLEAR(ADC0_RIS_R,3));
     ADC0_ISC_R |= (1<<3);
     return (uint16)ADC0_SSFIFO3_R;
 }

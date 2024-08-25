@@ -15,10 +15,16 @@ void TEMP_Init(TEMPConfig *config)
 {
     GPIO_ADCTriggerEnable(ADC_channels[config->channel].port, ADC_channels[config->channel].pin);
     ADC0_Seq3Init();
-    ADC0_Seq3SetChannel(config->channel);
 }
 
-uint16 TEMP_Read(TEMPConfig *config)
+uint8 TEMP_Read(TEMPConfig *config)
 {
-    return ADC0_Seq3ReadValue();
+    uint16 usAdcValue;
+    float32 fVolt;
+    uint8 ucTemp;
+    ADC0_Seq3SetChannel(config->channel);
+    usAdcValue = ADC0_Seq3ReadValue();
+    fVolt = (float32)(((double)usAdcValue*ADC_REF_VOLTAGE)/ADC_MAX_VALUE);
+    ucTemp= (uint8)(((double)fVolt*TEMP_SENSOR_MAX_TEMP)/TEMP_SENSOR_MAX_VOLT);
+    return ucTemp;
 }

@@ -14,6 +14,7 @@ FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: D:/IDEs/ccs/tools/compiler/ti-cg
 FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: D:/IDEs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h
 FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: D:/IDEs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h
 FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOSConfig.h
+FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/Common/std_types.h
 FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/projdefs.h
 FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/portable.h
 FreeRTOS/Source/portable/CCS/ARM_CM4F/port.obj: D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/deprecated_definitions.h
@@ -49,6 +50,8 @@ D:/IDEs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h:
 D:/IDEs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h:
 
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOSConfig.h:
+
+D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/Common/std_types.h:
 
 D:/Career/Embedded\ Systems/RTOS\ Course/Final\ Project/SeatHeater/FreeRTOS/Source/include/projdefs.h:
 

@@ -11,7 +11,7 @@
  ***********************************************************************************************/
 
 #ifndef MCAL_ADC_ADC_H_
-#define MCAL_ADC_ADC_H_-
+#define MCAL_ADC_ADC_H_
 
 #include "std_types.h"
 
@@ -45,6 +45,6 @@ typedef enum {
  *                              Functions Prototypes                           *
  *******************************************************************************/
 void ADC0_Seq3Init();
-boolean ADC0_Seq3SetChannel(uint8 ui8Channel);
+void ADC0_Seq3SetChannel(uint8 ui8Channel);
 uint16 ADC0_Seq3ReadValue();
 #endif /* MCAL_ADC_ADC_H_ */

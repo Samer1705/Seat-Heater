@@ -26,7 +26,9 @@ typedef enum{
 
 typedef struct{
     uint32 rgbPort;
-    uint8 rgbFirstPin;
+    uint8 rgbRedPin;
+    uint8 rgbGreenPin;
+    uint8 rgbBluePin;
 }RGBConfig;
 
 void RGB_Init(RGBConfig* rgbConfig);

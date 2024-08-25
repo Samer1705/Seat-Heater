@@ -16,6 +16,14 @@
 void SysCtl_PeripheralEnable(SysCtlPeripherals peripheral)
 {
     switch (peripheral) {
+    case SYSCTL_PERIPH_ADC0:
+        SYSCTL_RCGCADC_REG |= 0x01;
+        while(!(SYSCTL_PRADC_REG & 0x01));
+        break;
+    case SYSCTL_PERIPH_ADC1:
+        SYSCTL_RCGCADC_REG |= 0x02;
+        while(!(SYSCTL_PRADC_REG & 0x02));
+        break;
     case SYSCTL_PERIPH_GPIOA:
         SYSCTL_RCGCGPIO_REG |= 0x01;
         while(!(SYSCTL_PRGPIO_REG & 0x01));

@@ -13,22 +13,20 @@
 
 void RGB_Init(RGBConfig* rgbConfig)
 {
-    uint8 i;
-    for (i = 0; i < 3; i++)
-    {
-        GPIO_DirModeSet(rgbConfig->rgbPort, (rgbConfig->rgbFirstPin) + i, GPIO_DIR_MODE_OUT);
-    }
+    GPIO_DirModeSet(rgbConfig->rgbPort, rgbConfig->rgbRedPin, GPIO_DIR_MODE_OUT);
+    GPIO_DirModeSet(rgbConfig->rgbPort, rgbConfig->rgbGreenPin, GPIO_DIR_MODE_OUT);
+    GPIO_DirModeSet(rgbConfig->rgbPort, rgbConfig->rgbBluePin, GPIO_DIR_MODE_OUT);
 }
 
 
 void RGB_RedLedOn(RGBConfig* rgbConfig)
 {
-    GPIO_PinWrite(rgbConfig->rgbPort, rgbConfig->rgbFirstPin, LOGIC_HIGH);
+    GPIO_PinWrite(rgbConfig->rgbPort, rgbConfig->rgbRedPin, LOGIC_HIGH);
 }
 
 void RGB_RedLedOff(RGBConfig* rgbConfig)
 {
-    GPIO_PinWrite(rgbConfig->rgbPort, rgbConfig->rgbFirstPin, LOGIC_LOW);
+    GPIO_PinWrite(rgbConfig->rgbPort, rgbConfig->rgbRedPin, LOGIC_LOW);
 }
 
 //void RGB_RedLedToggle(RGBConfig* rgbConfig);
@@ -36,12 +34,12 @@ void RGB_RedLedOff(RGBConfig* rgbConfig)
 
 void RGB_GreenLedOn(RGBConfig* rgbConfig)
 {
-    GPIO_PinWrite(rgbConfig->rgbPort, (rgbConfig->rgbFirstPin) + 1, LOGIC_HIGH);
+    GPIO_PinWrite(rgbConfig->rgbPort, rgbConfig->rgbGreenPin, LOGIC_HIGH);
 }
 
 void RGB_GreenLedOff(RGBConfig* rgbConfig)
 {
-    GPIO_PinWrite(rgbConfig->rgbPort, (rgbConfig->rgbFirstPin) + 1 , LOGIC_LOW);
+    GPIO_PinWrite(rgbConfig->rgbPort, rgbConfig->rgbGreenPin , LOGIC_LOW);
 }
 
 //void RGB_GreenLedToggle(RGBConfig* rgbConfig);
@@ -49,12 +47,12 @@ void RGB_GreenLedOff(RGBConfig* rgbConfig)
 
 void RGB_BlueLedOn(RGBConfig* rgbConfig)
 {
-    GPIO_PinWrite(rgbConfig->rgbPort, (rgbConfig->rgbFirstPin) + 2, LOGIC_HIGH);
+    GPIO_PinWrite(rgbConfig->rgbPort, rgbConfig->rgbBluePin, LOGIC_HIGH);
 }
 
 void RGB_BlueLedOff(RGBConfig* rgbConfig)
 {
-    GPIO_PinWrite(rgbConfig->rgbPort, (rgbConfig->rgbFirstPin) + 2, LOGIC_LOW);
+    GPIO_PinWrite(rgbConfig->rgbPort, rgbConfig->rgbBluePin, LOGIC_LOW);
 }
 //void RGB_BlueLedToggle(RGBConfig* rgbConfig);
 
